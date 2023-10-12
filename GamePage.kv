@@ -1,0 +1,61 @@
+<GamePage>
+    country: country
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'horizontal'
+            MyLabel:
+                text: 'You have'
+            MyLabel:
+                text: root.livesLeft
+            MyLabel:
+                text: 'life(s) left'
+        BoxLayout:
+            orientation: 'horizontal'
+            MyLabel:
+                text: 'Your total score is '
+            MyLabel:
+                text: root.totalScore
+        BoxLayout:
+            orientation: 'horizontal'
+            MyLabel:
+                text: 'You guessed'
+            MyLabel:
+                text: root.inARow
+            MyLabel:
+                text: 'country(s) in a row!'
+        BoxLayout:
+            orientation: 'horizontal'
+            MyLabel:
+                text: 'You have'
+            MyLabel:
+                text: root.timeLimit
+            MyLabel:
+                text: 'second(s) left'
+
+
+        GridLayout:
+            cols: 2
+            MyLabel:
+                text: "Input a country"
+
+            MyTextInput:
+                id: country
+                multiline: False
+        GridLayout:
+            cols:1
+            MyButton:
+                text: "Submit"
+                on_release: root.submitted()
+
+<P>:
+    MyLabel:
+        text: root.result
+        size_hint: 0.6, 0.2
+        pos_hint: {'x': 0.2, 'y': 0.55}
+
+    MyButton:
+        text: 'Go back to the main page'
+        size_hint: 0.8, 0.2
+        pos_hint: {'x': 0.1, 'y': .1}
+        on_release: root.pressed()
