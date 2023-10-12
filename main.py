@@ -110,9 +110,9 @@ class GamePage(Screen):
         if int(self.livesLeft) <= 0:
             with open('data.txt', 'a') as f:
                 f.write(f'{self.totalScore} ')
-                f.write(str(self.inARow))#add self.mode to the data
+                f.write(f'{self.inARow}\n')#add self.mode to the data
 
-            result = f'        You lost, noob\n    Your total score is {self.totalScore}\nMaximum streak was {self.maxStreak}'
+            result = f'    You ran out of lives\n    Your total score is {self.totalScore}\nMaximum streak was {self.maxStreak}'
             show = P(sm=self.sm, result=result)
             popupWindow = CustomPopup(
                 title="Game over",
@@ -125,7 +125,7 @@ class GamePage(Screen):
             popupWindow.open()
             return
         if len(self.sm.usedCountries) >= 54:
-            result = f'          Congratz, u won!\nYour maximum streak was {self.maxStreak}'
+            result = f'        Congratz, u won!\nYour maximum streak was {self.maxStreak}'
             show = P(sm=self.sm, result=result)
             popupWindow = CustomPopup(
                 title="Game over",
@@ -139,7 +139,7 @@ class GamePage(Screen):
         return self.sm.refresh(Page=GamePage, name='GP', timeLimit=int(self.timeLimit), livesLeft=self.livesLeft, sm=self.sm, totalScore=self.totalScore, inARow=self.inARow, isGame=True)
 
     def showPopup(self, *args):
-        result = f'        You lost, noob\n    Your total score is {self.totalScore}\nMaximum streak was {self.maxStreak}'
+        result = f'    You ran out of time\n    Your total score is {self.totalScore}\nMaximum streak was {self.maxStreak}'
         show = P(sm=self.sm, result=result)
         CustomPopup(
             title="Game over",
