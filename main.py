@@ -79,7 +79,7 @@ class CustomPopup(Popup):
 
 
 class GamePage(Screen):
-    def __init__(self, timeLimit, livesLeft, sm : CustomAppManager, totalScore=0, inARow=0, **kwargs):
+    def __init__(self, timeLimit, livesLeft, sm : CustomAppManager, totalScore=0, inARow=0, isGame=False, **kwargs):
         self.timeLimit = str(timeLimit)
         self.livesLeft = str(livesLeft)
         self.totalScore = str(totalScore)
@@ -87,7 +87,8 @@ class GamePage(Screen):
         self.sm = sm
         self.maxStreak = 0
         super(GamePage, self).__init__(**kwargs)
-        self.timeLimitExceed(timeLimit)
+        if not isGame:
+            self.timeLimitExceed(timeLimit)
 
 
     country = ObjectProperty(None)
@@ -97,13 +98,13 @@ class GamePage(Screen):
         if guess in countries and guess not in self.sm.usedCountries:
             self.totalScore = str(int(self.totalScore) + 1)
             self.inARow = str(int(self.inARow) + 1)
-            maxStreak = max(self.maxStreak, int(self.inARow))
+            self.maxStreak = max(self.maxStreak, int(self.inARow))
             self.sm.usedCountries.append(guess)
         elif guess in self.sm.usedCountries:
             print('The country has already been guessed')
         else:
             self.livesLeft = int(self.livesLeft) - 1 #wrong guess -1 life
-            maxStreak = max(self.maxStreak, int(self.inARow))
+            self.maxStreak = max(self.maxStreak, int(self.inARow))
             self.inARow = 0
         self.country.text = ""
         if int(self.livesLeft) <= 0:
@@ -134,10 +135,11 @@ class GamePage(Screen):
                 separator_color=[0, 255/255, 210/255, .5],
                 background_color=[14/88, 0, 30/88, 1]
             ).open()
-        Clock.unschedule(self.event)
-        return self.sm.refresh(Page=GamePage, name='GP', timeLimit=int(self.timeLimit), livesLeft=self.livesLeft, sm=self.sm, totalScore=self.totalScore, inARow=self.inARow)
 
-    def showPopup(self, result, *args):
+        return self.sm.refresh(Page=GamePage, name='GP', timeLimit=int(self.timeLimit), livesLeft=self.livesLeft, sm=self.sm, totalScore=self.totalScore, inARow=self.inARow, isGame=True)
+
+    def showPopup(self, *args):
+        result = f'        You lost, noob\n    Your total score is {self.totalScore}\nMaximum streak was {self.maxStreak}'
         show = P(sm=self.sm, result=result)
         CustomPopup(
             title="Game over",
@@ -149,8 +151,7 @@ class GamePage(Screen):
         ).open()
 
     def timeLimitExceed(self, timeLimit):
-        result = f'        You lost, noob\n    Your total score is {self.totalScore}\nMaximum streak was {self.maxStreak}'
-        self.event = Clock.schedule_once(partial(self.showPopup, result), timeLimit)
+        self.event = Clock.schedule_once(partial(self.showPopup), timeLimit)
         return
 
 

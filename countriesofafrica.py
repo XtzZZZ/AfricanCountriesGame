@@ -19,7 +19,7 @@ def game(timeLimit, livesLeft):
                 return
             print(f'Ouch! This country is not in africa. Your score remains {totalScore} and you have {livesLeft} lives left.')
     print('I won')
-'''def menu():
+def menu():
     print("Welcome to the GUESS AFRICIAN COUNTRIES!\nThere are 54 countries and you have only 3 lives!\nAre you ready?\n")
     print("There are 3 modes. Input a value from 1 to 3 to choose the mode:\n1 - Easy (No time limit and infinite lives. Perfect for practice!)\n2 - Medium (15 minutes time limit and 5 lives. Too hard for you if you are an american.)\n3 - Hardcore (5 minutes time limit and only 1 life. Ready to test yourself?)")
     print("Input 4 to choose custom mode.\n")
@@ -34,5 +34,5 @@ def game(timeLimit, livesLeft):
     if mode == 4:
         timeLimit = int(input('Input the time: '))
         livesLeft = int(input('Input the amount of lives: '))
-        game(timeLimit, livesLeft)'''
+        game(timeLimit, livesLeft)
 
