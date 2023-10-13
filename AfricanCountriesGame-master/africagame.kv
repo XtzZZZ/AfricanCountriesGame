@@ -1,0 +1,70 @@
+#: import C kivy.utils.get_color_from_hex
+#:include MyWidget.kv
+
+<Authorization>
+    namee: name
+    formGroup: formGroup
+    livesLeft: livesLeft
+    timeLimit: timeLimit
+    BoxLayout:
+        orientation: 'vertical'
+        GridLayout:
+            cols: 2
+            MyLabel:
+                text: "Name: "
+
+            MyTextInput:
+                id: name
+                multiline: False
+
+            MyLabel:
+                text: "Form group: "
+
+            MyTextInput:
+                id: formGroup
+                multiline: False
+        GridLayout:
+            cols: 3
+            MyButton:
+
+                id: easy
+                on_release: root.pressed(1)
+                text: "  Easy mode\nNo time limit\n Infinite lives"
+            MyButton:
+                id: medium
+                on_release: root.pressed(2)
+                text: "Medium mode\n    10 minutes\n   Only 10 lives"
+
+            MyButton:
+                id: hardcore
+                on_release: root.pressed(3)
+                text: "Hardcore mode\n    2.5 minutes\n    Only 3 lives"
+        GridLayout:
+            cols: 2
+            MyLabel:
+                text: "Set custom time (seconds): "
+
+            MyTextInput:
+                id: timeLimit
+                multiline: False
+
+            MyLabel:
+                text: "Set custom amount of lives: "
+
+            MyTextInput:
+                id: livesLeft
+                multiline: False
+
+        GridLayout:
+            cols: 1
+
+            MyButton:
+                size: 100, 100
+                id: custom
+                on_release: root.pressed(4)
+                text: "Custom mode"
+
+
+
+
+
